@@ -1,4 +1,3 @@
 # stresster
 
 ## Performance test tool
-
