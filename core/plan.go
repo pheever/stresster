@@ -6,20 +6,15 @@ import (
 	"path/filepath"
 )
 
-//corePlan is the core Plan element
-type corePlan struct {
-	Name       string                 `json:"name"`
-	Properties map[string]interface{} `json:"properties"`
-	Iterations uint                   `json:"iterations"`
-	Users      uint                   `json:"users"`
-	RampUp     uint                   `json:"rampup"`
-	HoldLoad   uint                   `json:"holdload"`
-	Tasks      []interface{}          `json:"tasks"`
-}
-
 //Plan is the shell element
 type Plan struct {
-	corePlan
+	Name       string                 `json:"name,omitempty"`
+	Properties map[string]interface{} `json:"properties,omitempty"`
+	Iterations uint                   `json:"iterations,omitempty"`
+	Users      uint                   `json:"users,omitempty"`
+	RampUp     uint                   `json:"rampup,omitempty"`
+	HoldLoad   uint                   `json:"holdload,omitempty"`
+	Tasks      []interface{}          `json:"tasks"`
 }
 
 //NewPlan makes a new plan
@@ -31,7 +26,7 @@ func NewPlan(name string) Plan {
 
 //LoadPlanFromFile reads a Plan from a file
 func LoadPlanFromFile(filePath string) (*Plan, error) {
-	var cp corePlan
+	var plan Plan
 
 	ext := filepath.Ext(filePath)
 	unmarshal, supported := unmarshallers[ext]
@@ -44,65 +39,10 @@ func LoadPlanFromFile(filePath string) (*Plan, error) {
 		return nil, readerr
 	}
 
-	err := unmarshal(raw, &cp)
+	err := unmarshal(raw, &plan)
 	if err != nil {
 		return nil, err
 	}
 
-	return &Plan{corePlan: cp}, nil
-}
-
-//GetName gets the Plans name
-func (plan *Plan) GetName() string {
-	return plan.Name
-}
-
-//GetProperties gets the plans properties
-func (plan *Plan) GetProperties() map[string]interface{} {
-	return plan.Properties
-}
-
-//SetProperty sets the value of a property
-func (plan *Plan) SetProperty(key string, value interface{}) {
-	plan.Properties[key] = value
-}
-
-//GetIterations gets the Plans iterations
-func (plan *Plan) GetIterations() int {
-	return int(plan.Iterations)
-}
-
-//SetIterations sets the Plans iterations
-func (plan *Plan) SetIterations(iterations int) {
-	plan.Iterations = uint(iterations)
-}
-
-//GetUsers gets the Plans users
-func (plan *Plan) GetUsers() int {
-	return int(plan.Users)
-}
-
-//SetUsers sets the Plans users
-func (plan *Plan) SetUsers(users int) {
-	plan.Users = uint(users)
-}
-
-//GetRampUp gets the Plans ramp up
-func (plan *Plan) GetRampUp() int {
-	return int(plan.RampUp)
-}
-
-//SetRampUp sets the Plans ramp up
-func (plan *Plan) SetRampUp(rampUp int) {
-	plan.RampUp = uint(rampUp)
-}
-
-//GetHoldLoad gets the plans hold load
-func (plan *Plan) GetHoldLoad() int {
-	return int(plan.HoldLoad)
-}
-
-//SetHoldLoad sets the plans hold load
-func (plan *Plan) SetHoldLoad(holdLoad int) {
-	plan.HoldLoad = uint(holdLoad)
+	return &plan, nil
 }

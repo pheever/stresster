@@ -11,4 +11,6 @@ properties:
     hello: world
 tasks:
   - name: task 1
+    debug:
+      msg: hello debugger
   - name: task 2

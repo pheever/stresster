@@ -7,10 +7,10 @@ import (
 )
 
 func main() {
-	plan, err := core.LoadPlanFromFile("./test-plan2.yml")
+	plan, err := core.LoadPlanFromFile("./examples/test-plan.yml")
 	if err != nil {
 		fmt.Println(err.Error())
 		return
 	}
-	fmt.Printf("loaded plan:\n\t%+v", plan)
+	fmt.Printf(plan.Name)
 }
