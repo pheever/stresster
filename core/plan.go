@@ -17,6 +17,14 @@ type Plan struct {
 	Tasks      []interface{}          `json:"tasks"`
 }
 
+func (p *Plan) Start() {
+
+}
+
+func (p *Plan) Stop() {
+
+}
+
 //NewPlan makes a new plan
 func NewPlan(name string) Plan {
 	var plan Plan
@@ -24,8 +32,8 @@ func NewPlan(name string) Plan {
 	return plan
 }
 
-//LoadPlanFromFile reads a Plan from a file
-func LoadPlanFromFile(filePath string) (*Plan, error) {
+//LoadPlan reads a Plan from a file
+func LoadPlan(filePath string) (*Plan, error) {
 	var plan Plan
 
 	ext := filepath.Ext(filePath)
