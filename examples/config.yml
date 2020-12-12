@@ -1,0 +1,10 @@
+name: my test
+samplers:
+  - name: http get that resource x times
+    type: http
+    iterations: 34
+    config:
+      url: https://raw.githubusercontent.com/pheever/stresster/master/main.go
+      method: get
+      headers:
+        Accpet: All
