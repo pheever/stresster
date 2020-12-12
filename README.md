@@ -1,3 +1,0 @@
-# stresster
-
-## Performance test tool
