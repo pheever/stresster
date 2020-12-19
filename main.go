@@ -2,23 +2,16 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 
-	"github.com/pheever/stresster/core"
-	"gopkg.in/yaml.v3"
+	"github.com/pheever/stresster/plan"
 )
 
 func main() {
-	_, e := loadFile("examples/config.yml")
-	if e != nil {
-		fmt.Println("Failed to load plan")
+	CLALoad()
+	pln, er := plan.Load(planPath)
+	if er != nil {
+		fmt.Printf("failed: %v", er)
+		return
 	}
-	fmt.Println("Loaded")
-}
-
-func loadFile(path string) (interface{}, error) {
-	var plan core.Plan
-	data, err := ioutil.ReadFile(path)
-	yaml.Unmarshal(data, &plan)
-	return plan, err
+	fmt.Printf("the plan:\n%+v\n", pln)
 }

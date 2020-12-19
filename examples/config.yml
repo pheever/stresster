@@ -1,10 +1,25 @@
 name: my test
+
+tags: ["mytest", "yolo"]
+env: ["MyEnvVar"]
+global:
+  host: omonoianews.com
+var:
+  foo: 123
+  bar: baz
+configuration:
+  execution:
+    threads: 10
+    rampup: 10s
+  httpsampler:
+    allowCookies: true
 samplers:
   - name: http get that resource x times
-    type: http
-    iterations: 34
+    tags: ["asd", "asd", "dfg"]
+    sampler: http
+    config:
+      url: https://{{ .Global['host'] }}/featured/2020/12/apokalypse-pos-einai-thetikos/
+  - name: get that file from github
+    sampler: http
     config:
       url: https://raw.githubusercontent.com/pheever/stresster/master/main.go
-      method: get
-      headers:
-        Accpet: All
